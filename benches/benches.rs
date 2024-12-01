@@ -1,8 +1,8 @@
-use advent_of_code_2024::day1::day1;
+use advent_of_code_2024::day1::part1;
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
 pub fn criterion_benchmark(c: &mut Criterion) {
-    c.bench_function("day1", |b| b.iter(|| day1(black_box("38665   13337
+    c.bench_function("day1", |b| b.iter(|| part1(black_box("38665   13337
 84587   21418
 93374   50722
 68298   57474
