@@ -1,22 +1,6 @@
 #[aoc(day1, part1)]
 pub fn day1(input: &str) -> u32 {
     
-    // let mut left = Vec::with_capacity(1000);
-    // let mut right = Vec::with_capacity(1000);
-    
-    // input
-    // .lines()
-    // .map(|line| unsafe {
-    //     (
-    //         u32::from_str_radix(&line[0..5], 10).unwrap_unchecked(),
-    //         u32::from_str_radix(&line[8..13], 10).unwrap_unchecked(),
-    //     )
-    // })
-    // .for_each(|(lhs, rhs)| {
-    //     left.push(lhs);
-    //     right.push(rhs);
-    // });
-    
     let mut left: [u32; 1000] = [0;1000];
     let mut right: [u32; 1000] = [0;1000];
 

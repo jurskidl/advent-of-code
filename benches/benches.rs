@@ -1,49 +1,8 @@
+use advent_of_code_2024::day1::day1;
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
-
-pub fn day1(input: &str) -> u32 {
-    
-    // let mut left = Vec::with_capacity(1000);
-    // let mut right = Vec::with_capacity(1000);
-    
-    // input
-    // .lines()
-    // .map(|line| unsafe {
-    //     (
-    //         u32::from_str_radix(&line[0..5], 10).unwrap_unchecked(),
-    //         u32::from_str_radix(&line[8..13], 10).unwrap_unchecked(),
-    //     )
-    // })
-    // .for_each(|(lhs, rhs)| {
-    //     left.push(lhs);
-    //     right.push(rhs);
-    // });
-    
-    let mut left: [u32; 1000] = [0;1000];
-    let mut right: [u32; 1000] = [0;1000];
-
-    let mut count = 0;
-
-    let _: Vec<_> = input
-        .lines()
-        .map(|line| {
-            unsafe {
-                left[count] = u32::from_str_radix(&line[0..5], 10).unwrap_unchecked();
-                right[count] = u32::from_str_radix(&line[8..13], 10).unwrap_unchecked();
-            }
-            count +=1;
-        }).collect();
-
-    left.sort_unstable();
-    right.sort_unstable();
-
-    left.iter()
-        .zip(right)
-        .fold(0, |acc, (lhs, rhs)| acc + lhs.abs_diff(rhs))
-}
-
 pub fn criterion_benchmark(c: &mut Criterion) {
-    c.bench_function("fib 20", |b| b.iter(|| day1(black_box("38665   13337
+    c.bench_function("day1", |b| b.iter(|| day1(black_box("38665   13337
 84587   21418
 93374   50722
 68298   57474

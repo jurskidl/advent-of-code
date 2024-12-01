@@ -3,9 +3,6 @@ name = "advent-of-code-2024"
 version = "0.1.0"
 edition = "2021"
 
-[lib]
-bench = false
-
 [dependencies]
 rust-crypto = "*"
 aoc-runner = "*"
@@ -27,3 +24,7 @@ strip = "debuginfo"     # removes all debug info from binary (maybe should do "t
 
 [dev-dependencies]
 criterion = { version = "*", package = "codspeed-criterion-compat" }
+
+[[bench]]
+name = "benches"
+harness = false
