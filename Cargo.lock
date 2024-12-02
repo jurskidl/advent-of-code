@@ -6,9 +6,21 @@ version = 3
 name = "advent-of-code-2024"
 version = "0.1.0"
 dependencies = [
+ "advent-of-code-2024 0.1.0 (git+https://github.com/jurskidl/advent-of-code-2024)",
  "aoc-runner",
  "aoc-runner-derive",
  "codspeed-criterion-compat",
+ "memmap2",
+ "rust-crypto",
+]
+
+[[package]]
+name = "advent-of-code-2024"
+version = "0.1.0"
+source = "git+https://github.com/jurskidl/advent-of-code-2024#3131d68ecdeaa163684faf2bc5a45dbd0c2c105b"
+dependencies = [
+ "aoc-runner",
+ "aoc-runner-derive",
  "memmap2",
  "rust-crypto",
 ]

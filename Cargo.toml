@@ -8,6 +8,7 @@ rust-crypto = "*"
 aoc-runner = "*"
 aoc-runner-derive = "*"
 memmap2 = "*"
+solution = { git = "https://github.com/jurskidl/advent-of-code-2024", version = "0.1.0", package = "advent-of-code-2024" }
 
 [profile.dev]
 codegen-units = 1       # allows for maximum threads to be used in compilation. minimum optimization
