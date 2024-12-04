@@ -101,9 +101,9 @@ fn check_mem2(memory: &[u8], pos: usize, end: usize, sum: u32, do_flag: bool) ->
             (sum + val1 as u32 * val2 as u32, do_flag)
         }
         (D,O,N,APOST) => {
-            if pos + 3 < end && (memory[pos+1] == N && memory[pos+2] == LBRKT && memory[pos+3] == RBRKT) {
-                (sum, true)
-            } else { return (sum, false) }
+            if pos + 3 < end && (memory[pos+1] == T && memory[pos+2] == LBRKT && memory[pos+3] == RBRKT) {
+                (sum, false)
+            } else { return (sum, true) }
         }
         _ => { (sum, do_flag) }
     }
