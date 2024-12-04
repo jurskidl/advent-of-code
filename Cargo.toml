@@ -24,7 +24,7 @@ opt-level = 3           # experiment with 2 or 3 (s or z for file size optimizat
 strip = "debuginfo"     # removes all debug info from binary (maybe should do "true" instead)
 
 [dev-dependencies]
-criterion = { version = "*", package = "codspeed-criterion-compat" }
+criterion = { version = "2.7.2", package = "codspeed-criterion-compat" }
 
 [[bench]]
 name = "benches"
