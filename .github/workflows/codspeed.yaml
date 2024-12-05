@@ -30,3 +30,4 @@ jobs:
         uses: CodSpeedHQ/action@v3
         with:
           run: cargo codspeed run
+          token: secrets.CODSPEED
