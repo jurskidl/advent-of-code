@@ -23,16 +23,14 @@ fn get_vals(line: &[u8]) -> (usize, usize) {
 fn get_rules(
     input: &[u8],
     end: usize,
-    mut line: usize,
     mut pos: usize,
 ) -> ([[bool; 100]; 100], usize) {
     let mut rules: [[bool; 100]; 100] = [[false; 100]; 100];
 
     while input[pos - 1] != NEWLINE && input[pos] != NEWLINE && pos < end {
-        let (page, before) = get_vals(&input[line * 6..(line * 6) + 5]);
+        let (page, before) = get_vals(&input[pos-1..pos + 4]);
         rules[page][before] = true;
         pos += 6;
-        line += 1;
     }
 
     (rules, pos)
@@ -44,47 +42,36 @@ fn check_order(line: &Vec<usize>, rules: &[[bool; 100]; 100]) -> bool {
         .all(|order| order == true)
 }
 
-fn get_line(
-    input: &[u8],
-    rules: [[bool; 100]; 100],
-    mut line: Vec<usize>,
-    mut pos: usize,
-    sum: u16,
-    end: usize,
-) -> (u16, usize) {
-    while pos < end && input[pos] != NEWLINE {
-        if input[pos] != COMMA {
-            pos += 1;
-            line.push(
-                (pos - 1..pos + 1)
-                    .into_iter()
-                    .map(|x| unsafe {
-                        ((*input.get_unchecked(x) as usize - 48usize)
-                            * 10usize.pow((pos - x) as u32)) as usize
-                    })
-                    .sum(),
-            )
-        } else {
-        }
-        pos += 1
-    }
-
-    if check_order(&line, &rules) {
-        (sum + line[line.len() >> 1] as u16, pos)
-    } else {
-        (sum, pos)
-    }
-}
-
 fn get_solution(
     input: &[u8],
-    rules: [[bool; 100]; 100],
+    rules: &[[bool; 100]; 100],
     mut pos: usize,
     end: usize,
     mut sum: u16,
 ) -> u16 {
     while pos < end {
-        (sum, pos) = get_line(input, rules, Vec::with_capacity(23), pos, sum, end);
+        let mut line: Vec<usize> = Vec::with_capacity(23);
+        while pos < end && input[pos] != NEWLINE {
+            if input[pos] != COMMA {
+                pos += 1;
+                line.push(
+                    (pos - 1..pos + 1)
+                        .into_iter()
+                        .map(|x| unsafe {
+                            ((*input.get_unchecked(x) as usize - 48usize)
+                                * 10usize.pow((pos - x) as u32)) as usize
+                        })
+                        .sum(),
+                )
+            } else {
+            }
+            pos += 1
+        }
+        sum += if check_order(&line, &rules) {
+            line[line.len() >> 1] as u16
+        } else {
+            0
+        };
         pos += 1
     }
     sum
@@ -94,10 +81,11 @@ fn get_solution(
 pub fn part1(input: &str) -> u16 {
     let input = input.as_bytes();
     let end = input.len();
-    let (rules, pos) = get_rules(input, end, 0, 1);
-    get_solution(input, rules, pos, end, 0)
+    let (rules, pos) = get_rules(input, end, 1);
+    get_solution(input, &rules, pos, end, 0)
 }
 
+// Insertion sort method
 fn sort_line(mut line: Vec<usize>, rules: &[[bool; 100]; 100]) -> Vec<usize> {
     for i in 1..line.len() {
         for j in (1..i + 1).rev() {
@@ -112,7 +100,7 @@ fn sort_line(mut line: Vec<usize>, rules: &[[bool; 100]; 100]) -> Vec<usize> {
 
 fn get_line2(
     input: &[u8],
-    rules: [[bool; 100]; 100],
+    rules: &[[bool; 100]; 100],
     mut line: Vec<usize>,
     mut pos: usize,
     sum: u16,
@@ -145,7 +133,7 @@ fn get_line2(
 
 fn get_solution2(
     input: &[u8],
-    rules: [[bool; 100]; 100],
+    rules: &[[bool; 100]; 100],
     mut pos: usize,
     end: usize,
     mut sum: u16,
@@ -161,6 +149,6 @@ fn get_solution2(
 pub fn part2(input: &str) -> u16 {
     let input = input.as_bytes();
     let end = input.len();
-    let (rules, pos) = get_rules(input, end, 0, 1);
-    get_solution2(input, rules, pos, end, 0)
+    let (rules, pos) = get_rules(input, end, 1);
+    get_solution2(input, &rules, pos, end, 0)
 }
