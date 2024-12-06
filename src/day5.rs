@@ -20,15 +20,11 @@ fn get_vals(line: &[u8]) -> (usize, usize) {
     )
 }
 
-fn get_rules(
-    input: &[u8],
-    end: usize,
-    mut pos: usize,
-) -> ([[bool; 100]; 100], usize) {
+fn get_rules(input: &[u8], end: usize, mut pos: usize) -> ([[bool; 100]; 100], usize) {
     let mut rules: [[bool; 100]; 100] = [[false; 100]; 100];
 
     while input[pos - 1] != NEWLINE && input[pos] != NEWLINE && pos < end {
-        let (page, before) = get_vals(&input[pos-1..pos + 4]);
+        let (page, before) = get_vals(&input[pos - 1..pos + 4]);
         rules[page][before] = true;
         pos += 6;
     }
@@ -59,7 +55,8 @@ fn get_solution(
                         .into_iter()
                         .map(|x| unsafe {
                             ((*input.get_unchecked(x) as usize - 48usize)
-                                * 10usize.pow((pos - x) as u32)) as usize
+                                * 10usize.pow((pos - x) as u32))
+                                as usize
                         })
                         .sum(),
                 )
@@ -89,7 +86,7 @@ pub fn part1(input: &str) -> u16 {
 fn sort_line(mut line: Vec<usize>, rules: &[[bool; 100]; 100]) -> Vec<usize> {
     for i in 1..line.len() {
         for j in (1..i + 1).rev() {
-            if rules[line[j]][line[j-1]] {
+            if rules[line[j]][line[j - 1]] {
                 break;
             }
             line.swap(j - 1, j)
