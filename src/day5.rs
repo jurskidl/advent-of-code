@@ -99,16 +99,14 @@ pub fn part1(input: &str) -> u16 {
 }
 
 fn sort_line(mut line: Vec<usize>, rules: &[[bool; 100]; 100]) -> Vec<usize> {
-    line.reverse();
     for i in 1..line.len() {
         for j in (1..i + 1).rev() {
-            if rules[line[j - 1]][line[j]] {
+            if rules[line[j]][line[j-1]] {
                 break;
             }
             line.swap(j - 1, j)
         }
     }
-    line.reverse();
     line
 }
 
