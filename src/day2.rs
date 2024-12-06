@@ -6,27 +6,35 @@ fn get_twovals(line: &[u8], mut pos: usize, end: usize) -> (u8, u8, usize) {
     while pos < end && line[pos] != SPACE {
         pos += 1;
     }
-    let val2_start = pos+1;
+    let val2_start = pos + 1;
     let mut temp_pos = val2_start;
     while temp_pos < end && line[temp_pos] != SPACE {
         temp_pos += 1;
     }
 
-    let val1 = (val1_start..pos).into_iter().map(|x| 
-        unsafe{ 
-            ((*line.get_unchecked(x) as u32 - 48u32) * 10u32.pow(((pos-1) - x) as u32)) as u8 
-        }
-    ).sum();
+    let val1 = (val1_start..pos)
+        .into_iter()
+        .map(|x| unsafe {
+            ((*line.get_unchecked(x) as u32 - 48u32) * 10u32.pow(((pos - 1) - x) as u32)) as u8
+        })
+        .sum();
 
-    let val2 = (val2_start..temp_pos).into_iter().map(|x| 
-        unsafe{ 
-            ((*line.get_unchecked(x) as u32 - 48u32) * 10u32.pow(((temp_pos-1) - x) as u32)) as u8 
-        }
-    ).sum();
+    let val2 = (val2_start..temp_pos)
+        .into_iter()
+        .map(|x| unsafe {
+            ((*line.get_unchecked(x) as u32 - 48u32) * 10u32.pow(((temp_pos - 1) - x) as u32)) as u8
+        })
+        .sum();
 
-    (val1, 
-    val2, 
-    if temp_pos != end {val2_start} else {temp_pos})
+    (
+        val1,
+        val2,
+        if temp_pos != end {
+            val2_start
+        } else {
+            temp_pos
+        },
+    )
 }
 
 fn get_lines(line: &[u8]) -> bool {
@@ -35,16 +43,16 @@ fn get_lines(line: &[u8]) -> bool {
     let (mut prev_val, mut val, mut pos) = get_twovals(line, 0, end);
     let diff = val as i8 - prev_val as i8;
     if diff.abs() > 3 || diff == 0 {
-        return false
+        return false;
     }
-    let prev_sign = if diff.signum() == 1 {true} else {false};
+    let prev_sign = if diff.signum() == 1 { true } else { false };
 
     while pos < end {
         (prev_val, val, pos) = get_twovals(line, pos, end);
         let diff = val as i8 - prev_val as i8;
-        let sign = if diff.signum() == 1 {true} else {false};
+        let sign = if diff.signum() == 1 { true } else { false };
         if diff.abs() > 3 || diff == 0 || prev_sign != sign {
-            return false
+            return false;
         }
     }
     true
@@ -67,7 +75,7 @@ fn get_safes(buffer: &[u8], end: usize) -> u16 {
         start_line = pos;
     }
 
-    safes.into_iter().fold(0,|acc, x| acc + x as u16)
+    safes.into_iter().fold(0, |acc, x| acc + x as u16)
 }
 
 #[aoc(day2, part1)]
@@ -82,23 +90,32 @@ fn get_twoval(line: &[u8], mut pos: usize, end: usize) -> (u8, u8, usize) {
     while pos < end && line[pos] != SPACE {
         pos += 1;
     }
-    let val2_start = pos+1;
+    let val2_start = pos + 1;
     let mut temp_pos = val2_start;
     while temp_pos < end && line[temp_pos] != SPACE {
         temp_pos += 1;
     }
 
-    ((val1_start..pos).into_iter().map(|x| 
-        unsafe{ 
-            ((*line.get_unchecked(x) as u32 - 48u32) * 10u32.pow(((pos-1) - x) as u32)) as u8 
-        }
-    ).sum(), 
-    (val2_start..temp_pos).into_iter().map(|x| 
-        unsafe{ 
-            ((*line.get_unchecked(x) as u32 - 48u32) * 10u32.pow(((temp_pos-1) - x) as u32)) as u8 
-        }
-    ).sum(), 
-    if temp_pos != end {val2_start} else {temp_pos})
+    (
+        (val1_start..pos)
+            .into_iter()
+            .map(|x| unsafe {
+                ((*line.get_unchecked(x) as u32 - 48u32) * 10u32.pow(((pos - 1) - x) as u32)) as u8
+            })
+            .sum(),
+        (val2_start..temp_pos)
+            .into_iter()
+            .map(|x| unsafe {
+                ((*line.get_unchecked(x) as u32 - 48u32) * 10u32.pow(((temp_pos - 1) - x) as u32))
+                    as u8
+            })
+            .sum(),
+        if temp_pos != end {
+            val2_start
+        } else {
+            temp_pos
+        },
+    )
 }
 
 fn is_safe_dampened<const MIN: i8, const MAX: i8>(deltas: &Vec<i8>) -> bool {
@@ -149,7 +166,7 @@ fn get_line(line: &[u8]) -> Vec<i8> {
     while pos < end {
         (prev_val, val, pos) = get_twoval(line, pos, end);
         diffs.push(val as i8 - prev_val as i8);
-    };
+    }
 
     diffs
 }
@@ -182,7 +199,7 @@ pub fn part2(input: &str) -> u16 {
     get_safe(input, input.len())
 }
 
-mod tests{
+mod tests {
     #[allow(unused)]
     use crate::day2::{part1, part2};
 
@@ -196,7 +213,6 @@ mod tests{
 1 3 6 7 9";
 
         assert_eq!(part1(test), 2);
-        assert_eq!(part2(test),4)
+        assert_eq!(part2(test), 4)
     }
-    
 }

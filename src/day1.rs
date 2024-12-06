@@ -3,35 +3,35 @@ pub fn part1(input: &str) -> u32 {
     let mut left: [u32; 1000] = [0; 1000];
     let mut right: [u32; 1000] = [0; 1000];
     let bytes = input.as_bytes();
-  
+
     unsafe {
         for j in 0..1000 {
             // set start of row
-            let i: usize = j*14;
+            let i: usize = j * 14;
 
             // Parse first number
-            let lhs: u32 = (*bytes.get_unchecked(i) - 48) as u32 * 10u32.pow(4) 
-            + (*bytes.get_unchecked(i+1) - 48) as u32 * 10u32.pow(3)
-            + (*bytes.get_unchecked(i+2) - 48) as u32 * 10u32.pow(2)
-            + (*bytes.get_unchecked(i+3) - 48) as u32 * 10u32.pow(1)
-            + (*bytes.get_unchecked(i+4) - 48) as u32;
-  
+            let lhs: u32 = (*bytes.get_unchecked(i) - 48) as u32 * 10u32.pow(4)
+                + (*bytes.get_unchecked(i + 1) - 48) as u32 * 10u32.pow(3)
+                + (*bytes.get_unchecked(i + 2) - 48) as u32 * 10u32.pow(2)
+                + (*bytes.get_unchecked(i + 3) - 48) as u32 * 10u32.pow(1)
+                + (*bytes.get_unchecked(i + 4) - 48) as u32;
+
             // Parse second number
-            let rhs: u32 = (*bytes.get_unchecked(i+8) - 48) as u32 * 10u32.pow(4) 
-            + (*bytes.get_unchecked(i+9) - 48) as u32 * 10u32.pow(3)
-            + (*bytes.get_unchecked(i+10) - 48) as u32 * 10u32.pow(2)
-            + (*bytes.get_unchecked(i+11) - 48) as u32 * 10u32.pow(1)
-            + (*bytes.get_unchecked(i+12) - 48) as u32;
-  
+            let rhs: u32 = (*bytes.get_unchecked(i + 8) - 48) as u32 * 10u32.pow(4)
+                + (*bytes.get_unchecked(i + 9) - 48) as u32 * 10u32.pow(3)
+                + (*bytes.get_unchecked(i + 10) - 48) as u32 * 10u32.pow(2)
+                + (*bytes.get_unchecked(i + 11) - 48) as u32 * 10u32.pow(1)
+                + (*bytes.get_unchecked(i + 12) - 48) as u32;
+
             // Add to vectors
             *left.get_unchecked_mut(j) = lhs;
             *right.get_unchecked_mut(j) = rhs;
         }
-  
+
         left.sort_unstable();
         right.sort_unstable();
     }
-  
+
     left.iter()
         .zip(right)
         .fold(0, |acc, (lhs, rhs)| acc + lhs.abs_diff(rhs))
@@ -42,41 +42,43 @@ pub fn part2(input: &str) -> usize {
     let mut left: [usize; 1000] = [0; 1000];
     let mut right: [usize; 1000] = [0; 1000];
     let bytes = input.as_bytes();
-  
+
     unsafe {
         for j in 0..1000 {
             // set start of row
-            let i: usize = j*14;
+            let i: usize = j * 14;
 
             // Parse first number
-            let lhs: usize = (*bytes.get_unchecked(i) - 48) as usize * 10usize.pow(4) 
-            + (*bytes.get_unchecked(i+1) - 48) as usize * 10usize.pow(3)
-            + (*bytes.get_unchecked(i+2) - 48) as usize * 10usize.pow(2)
-            + (*bytes.get_unchecked(i+3) - 48) as usize * 10usize.pow(1)
-            + (*bytes.get_unchecked(i+4) - 48) as usize;
-  
+            let lhs: usize = (*bytes.get_unchecked(i) - 48) as usize * 10usize.pow(4)
+                + (*bytes.get_unchecked(i + 1) - 48) as usize * 10usize.pow(3)
+                + (*bytes.get_unchecked(i + 2) - 48) as usize * 10usize.pow(2)
+                + (*bytes.get_unchecked(i + 3) - 48) as usize * 10usize.pow(1)
+                + (*bytes.get_unchecked(i + 4) - 48) as usize;
+
             // Parse second number
-            let rhs: usize = (*bytes.get_unchecked(i+8) - 48) as usize * 10usize.pow(4) 
-            + (*bytes.get_unchecked(i+9) - 48) as usize * 10usize.pow(3)
-            + (*bytes.get_unchecked(i+10) - 48) as usize * 10usize.pow(2)
-            + (*bytes.get_unchecked(i+11) - 48) as usize * 10usize.pow(1)
-            + (*bytes.get_unchecked(i+12) - 48) as usize;
-  
+            let rhs: usize = (*bytes.get_unchecked(i + 8) - 48) as usize * 10usize.pow(4)
+                + (*bytes.get_unchecked(i + 9) - 48) as usize * 10usize.pow(3)
+                + (*bytes.get_unchecked(i + 10) - 48) as usize * 10usize.pow(2)
+                + (*bytes.get_unchecked(i + 11) - 48) as usize * 10usize.pow(1)
+                + (*bytes.get_unchecked(i + 12) - 48) as usize;
+
             // Add to vectors
             *left.get_unchecked_mut(j) = lhs;
             *right.get_unchecked_mut(j) = rhs;
         }
     }
-    
-    let mut freq: [usize; 89999] = [0; 89999]; 
-    right.into_iter().for_each(|value: usize| freq[value-10000]+=1);
 
-    left.iter()
-        .fold(0, |acc: usize, value: &usize| acc + *value * freq[*value-10000])
+    let mut freq: [usize; 89999] = [0; 89999];
+    right
+        .into_iter()
+        .for_each(|value: usize| freq[value - 10000] += 1);
 
+    left.iter().fold(0, |acc: usize, value: &usize| {
+        acc + *value * freq[*value - 10000]
+    })
 }
 
-mod tests{
+mod tests {
     #[allow(unused)]
     use crate::day1::{part1, part2};
 
@@ -1086,5 +1088,4 @@ mod tests{
         assert_eq!(part1(test), 1830467);
         assert_eq!(part2(test), 26674158)
     }
-    
 }
