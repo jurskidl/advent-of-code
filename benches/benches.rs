@@ -1,4 +1,4 @@
-use advent_of_code_2024::{day1, day2, day3, day4, day5};
+use advent_of_code_2024::{day1, day2, day3, day4, day5, day6};
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use std::fs::read_to_string;
 
@@ -27,6 +27,11 @@ pub fn criterion_benchmark(c: &mut Criterion) {
     let input = input.as_str();
     c.bench_function("day5part1", |b| b.iter(|| day5::part1(black_box(input))));
     c.bench_function("day5part2", |b| b.iter(|| day5::part2(black_box(input))));
+
+    let input = read_to_string("./input/2024/day6.txt").unwrap();
+    let input = input.as_str();
+    c.bench_function("day6part1", |b| b.iter(|| day6::part1(black_box(input))));
+    // c.bench_function("day6part2", |b| b.iter(|| day6::part2(black_box(input))));
 }
 
 criterion_group!(benches, criterion_benchmark);

@@ -7,8 +7,6 @@ edition = "2021"
 rust-crypto = "*"
 aoc-runner = "*"
 aoc-runner-derive = "*"
-memmap2 = "*"
-regex = "*"
 
 [profile.dev]
 codegen-units = 1       # allows for maximum threads to be used in compilation. minimum optimization
