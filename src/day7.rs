@@ -1,5 +1,3 @@
-use std::simd::f32x4;
-
 const NEWLINE: u8 = 10;
 const SPACE: u8 = 32;
 const COLON: u8 = 58;

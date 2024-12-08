@@ -1,4 +1,4 @@
-use advent_of_code_2024::{day1, day2, day3, day4, day5, day6};
+use advent_of_code_2024::{day1, day2, day3, day4, day5, day6, day7};
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use std::fs::read_to_string;
 
