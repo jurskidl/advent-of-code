@@ -32,6 +32,11 @@ pub fn criterion_benchmark(c: &mut Criterion) {
     let input = input.as_str();
     c.bench_function("day6part1", |b| b.iter(|| day6::part1(black_box(input))));
     // c.bench_function("day6part2", |b| b.iter(|| day6::part2(black_box(input))));
+
+    let input = read_to_string("./input/2024/day7.txt").unwrap();
+    let input = input.as_str();
+    c.bench_function("day7part1", |b| b.iter(|| day7::part1(black_box(input))));
+    c.bench_function("day7part2", |b| b.iter(|| day7::part2(black_box(input))));
 }
 
 criterion_group!(benches, criterion_benchmark);
