@@ -3,7 +3,7 @@ name: CodSpeed
 on:
   push:
     branches:
-      - "main" # or "master"
+      - "master"
   pull_request:
   # `workflow_dispatch` allows CodSpeed to trigger backtest
   # performance analysis in order to generate initial data.
@@ -13,6 +13,8 @@ jobs:
   benchmarks:
     name: Run benchmarks
     runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: '-Ctarget-cpu=native'
     steps:
       - uses: actions/checkout@v4
 
