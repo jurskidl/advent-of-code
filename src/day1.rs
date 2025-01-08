@@ -230,4 +230,3 @@ mod tests {
         assert_eq!(part2(input), 26674158)
     }
 }
-
