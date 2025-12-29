@@ -5,31 +5,30 @@ on:
     branches:
       - "master"
   pull_request:
-  # `workflow_dispatch` allows CodSpeed to trigger backtest
-  # performance analysis in order to generate initial data.
   workflow_dispatch:
 
 jobs:
   benchmarks:
     name: Run benchmarks
     runs-on: ubuntu-latest
-    env:
-      RUSTFLAGS: '-Ctarget-cpu=native'
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup rust toolchain, cache and cargo-codspeed binary
+      - name: Setup rust toolchain
         uses: moonrepo/setup-rust@v1
         with:
           channel: nightly
           cache-target: release
-          bins: cargo-codspeed
+          # Add cargo-aoc to the pre-installed bins
+          bins: cargo-codspeed, cargo-aoc
 
-      - name: Build the benchmark target(s)
+      - name: Build the benchmark target
+        # cargo-aoc generates the benchmark code on the fly
+        # We run build through codspeed to instrument it
         run: cargo codspeed build
 
       - name: Run the benchmarks
         uses: CodSpeedHQ/action@v3
         with:
           run: cargo codspeed run
-          token: ${{ secrets.CODSPEED }}
+          token: ${{ secrets.CODSPEED_TOKEN }} # Ensure this matches your secret name
