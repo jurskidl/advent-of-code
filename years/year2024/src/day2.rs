@@ -12,19 +12,13 @@ fn get_twovals(line: &[u8], mut pos: usize, end: usize) -> (u8, u8, usize) {
         temp_pos += 1;
     }
 
-    let val1 = (val1_start..pos)
-        .into_iter()
-        .map(|x| unsafe {
-            ((*line.get_unchecked(x) as u32 - 48u32) * 10u32.pow(((pos - 1) - x) as u32)) as u8
-        })
-        .sum();
+    let val1 = line[val1_start..pos]
+        .iter()
+        .fold(0u8, |acc, &b| acc * 10 + (b - b'0') as u8);
 
-    let val2 = (val2_start..temp_pos)
-        .into_iter()
-        .map(|x| unsafe {
-            ((*line.get_unchecked(x) as u32 - 48u32) * 10u32.pow(((temp_pos - 1) - x) as u32)) as u8
-        })
-        .sum();
+    let val2 = line[val2_start..temp_pos]
+        .iter()
+        .fold(0u8, |acc, &b| acc * 10 + (b - b'0') as u8);
 
     (
         val1,
@@ -96,20 +90,17 @@ fn get_twoval(line: &[u8], mut pos: usize, end: usize) -> (u8, u8, usize) {
         temp_pos += 1;
     }
 
+    let val1 = line[val1_start..pos]
+        .iter()
+        .fold(0u8, |acc, &b| acc * 10 + (b - b'0') as u8);
+
+    let val2 = line[val2_start..temp_pos]
+        .iter()
+        .fold(0u8, |acc, &b| acc * 10 + (b - b'0') as u8);
+
     (
-        (val1_start..pos)
-            .into_iter()
-            .map(|x| unsafe {
-                ((*line.get_unchecked(x) as u32 - 48u32) * 10u32.pow(((pos - 1) - x) as u32)) as u8
-            })
-            .sum(),
-        (val2_start..temp_pos)
-            .into_iter()
-            .map(|x| unsafe {
-                ((*line.get_unchecked(x) as u32 - 48u32) * 10u32.pow(((temp_pos - 1) - x) as u32))
-                    as u8
-            })
-            .sum(),
+        val1,
+        val2,
         if temp_pos != end {
             val2_start
         } else {
