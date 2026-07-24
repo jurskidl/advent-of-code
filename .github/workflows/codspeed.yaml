@@ -5,9 +5,11 @@ on:
     branches:
       - "master"
   pull_request:
-  # `workflow_dispatch` allows CodSpeed to trigger backtest
-  # performance analysis in order to generate initial data.
   workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   benchmarks:
@@ -29,7 +31,7 @@ jobs:
         run: cargo codspeed build
 
       - name: Run the benchmarks
-        uses: CodSpeedHQ/action@v3
+        uses: CodSpeedHQ/action@v4
         with:
           run: cargo codspeed run
           token: ${{ secrets.CODSPEED }}

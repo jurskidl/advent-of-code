@@ -173,11 +173,29 @@ checksum = "eb56923193c76a0e5b6b17b2c2bb1e151ef8a5e06b557e1cbe38c6db467763f9"
 dependencies = [
  "anyhow",
  "cc",
- "colored",
- "getrandom",
+ "colored 2.1.0",
+ "getrandom 0.2.16",
  "glob",
  "libc",
- "nix",
+ "nix 0.30.1",
+ "serde",
+ "serde_json",
+ "statrs",
+]
+
+[[package]]
+name = "codspeed"
+version = "5.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7083f253260bcb4aaa3b4aa4c52973703dabc1a85c2f193997e2689aafa8a919"
+dependencies = [
+ "anyhow",
+ "cc",
+ "colored 3.1.1",
+ "getrandom 0.4.3",
+ "glob",
+ "libc",
+ "nix 0.31.3",
  "serde",
  "serde_json",
  "statrs",
@@ -190,9 +208,22 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e489bdc5be7a2ab085545fbdb7319bb326e5cac9b3cfa6e1f9209b868f5e3f97"
 dependencies = [
  "clap",
- "codspeed",
- "codspeed-criterion-compat-walltime",
- "colored",
+ "codspeed 4.2.0",
+ "codspeed-criterion-compat-walltime 4.2.0",
+ "colored 2.1.0",
+ "regex",
+]
+
+[[package]]
+name = "codspeed-criterion-compat"
+version = "5.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d9f24251445188c69d50f10179d795424bd71b533b7e3f84fc03f26893b01af0"
+dependencies = [
+ "clap",
+ "codspeed 5.0.1",
+ "codspeed-criterion-compat-walltime 5.0.1",
+ "colored 3.1.1",
  "regex",
 ]
 
@@ -206,7 +237,34 @@ dependencies = [
  "cast",
  "ciborium",
  "clap",
- "codspeed",
+ "codspeed 4.2.0",
+ "criterion-plot",
+ "is-terminal",
+ "itertools",
+ "num-traits",
+ "once_cell",
+ "oorandom",
+ "plotters",
+ "rayon",
+ "regex",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "tinytemplate",
+ "walkdir",
+]
+
+[[package]]
+name = "codspeed-criterion-compat-walltime"
+version = "5.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5c38205d56e2cb4fe04b708de7f9653a3f1b89edbe3a20b28f21e9e525e9e061"
+dependencies = [
+ "anes",
+ "cast",
+ "ciborium",
+ "clap",
+ "codspeed 5.0.1",
  "criterion-plot",
  "is-terminal",
  "itertools",
@@ -231,6 +289,15 @@ checksum = "cbf2150cce219b664a8a70df7a1f933836724b503f8a413af9365b4dcc4d90b8"
 dependencies = [
  "lazy_static",
  "windows-sys 0.48.0",
+]
+
+[[package]]
+name = "colored"
+version = "3.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "faf9468729b8cbcea668e36183cb69d317348c2e08e994829fb56ebfdfbaac34"
+dependencies = [
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -295,6 +362,17 @@ dependencies = [
  "cfg-if",
  "libc",
  "wasi",
+]
+
+[[package]]
+name = "getrandom"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "300e883d756b2e4ec94e02791f39b04b522276138852cfc41d9fb7e904106099"
+dependencies = [
+ "cfg-if",
+ "libc",
+ "r-efi",
 ]
 
 [[package]]
@@ -363,9 +441,9 @@ checksum = "bbd2bcb4c963f2ddae06a2efc7e9f3591312473c50c6685e1f298068316e66fe"
 
 [[package]]
 name = "libc"
-version = "0.2.178"
+version = "0.2.189"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "37c93d8daa9d8a012fd8ab92f088405fb202ea0b6ab73ee2482ae66af4f42091"
+checksum = "3eaf3ede3fee6db1a4c2ee091bf8a8b4dccdc6d17f656fb07896ee72867612f2"
 
 [[package]]
 name = "log"
@@ -384,6 +462,18 @@ name = "nix"
 version = "0.30.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "74523f3a35e05aba87a1d978330aef40f67b0304ac79c1c00b294c9830543db6"
+dependencies = [
+ "bitflags",
+ "cfg-if",
+ "cfg_aliases",
+ "libc",
+]
+
+[[package]]
+name = "nix"
+version = "0.31.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cf20d2fde8ff38632c426f1165ed7436270b44f199fc55284c38276f9db47c3d"
 dependencies = [
  "bitflags",
  "cfg-if",
@@ -457,6 +547,12 @@ checksum = "b5b9d34b8991d19d98081b46eacdd8eb58c6f2b201139f7c5f643cc155a633af"
 dependencies = [
  "proc-macro2",
 ]
+
+[[package]]
+name = "r-efi"
+version = "6.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f8dcc9c7d52a811697d2151c701e0d08956f92b0e24136cf4cf27b57a6a0d9bf"
 
 [[package]]
 name = "rayon"
@@ -857,7 +953,7 @@ version = "0.1.0"
 dependencies = [
  "aoc-runner",
  "aoc-runner-derive",
- "codspeed-criterion-compat",
+ "codspeed-criterion-compat 5.0.1",
 ]
 
 [[package]]
@@ -866,7 +962,7 @@ version = "0.1.0"
 dependencies = [
  "aoc-runner",
  "aoc-runner-derive",
- "codspeed-criterion-compat",
+ "codspeed-criterion-compat 4.2.0",
 ]
 
 [[package]]
@@ -875,7 +971,7 @@ version = "0.1.0"
 dependencies = [
  "aoc-runner",
  "aoc-runner-derive",
- "codspeed-criterion-compat",
+ "codspeed-criterion-compat 4.2.0",
 ]
 
 [[package]]
@@ -884,7 +980,7 @@ version = "0.1.0"
 dependencies = [
  "aoc-runner",
  "aoc-runner-derive",
- "codspeed-criterion-compat",
+ "codspeed-criterion-compat 4.2.0",
 ]
 
 [[package]]
@@ -893,7 +989,7 @@ version = "0.1.0"
 dependencies = [
  "aoc-runner",
  "aoc-runner-derive",
- "codspeed-criterion-compat",
+ "codspeed-criterion-compat 4.2.0",
 ]
 
 [[package]]
@@ -902,7 +998,7 @@ version = "0.1.0"
 dependencies = [
  "aoc-runner",
  "aoc-runner-derive",
- "codspeed-criterion-compat",
+ "codspeed-criterion-compat 4.2.0",
 ]
 
 [[package]]
@@ -911,7 +1007,7 @@ version = "0.1.0"
 dependencies = [
  "aoc-runner",
  "aoc-runner-derive",
- "codspeed-criterion-compat",
+ "codspeed-criterion-compat 4.2.0",
 ]
 
 [[package]]
@@ -920,7 +1016,7 @@ version = "0.1.0"
 dependencies = [
  "aoc-runner",
  "aoc-runner-derive",
- "codspeed-criterion-compat",
+ "codspeed-criterion-compat 4.2.0",
 ]
 
 [[package]]
@@ -929,7 +1025,7 @@ version = "0.1.0"
 dependencies = [
  "aoc-runner",
  "aoc-runner-derive",
- "codspeed-criterion-compat",
+ "codspeed-criterion-compat 4.2.0",
 ]
 
 [[package]]
@@ -938,7 +1034,7 @@ version = "0.1.0"
 dependencies = [
  "aoc-runner",
  "aoc-runner-derive",
- "codspeed-criterion-compat",
+ "codspeed-criterion-compat 4.2.0",
 ]
 
 [[package]]
@@ -947,7 +1043,7 @@ version = "0.1.0"
 dependencies = [
  "aoc-runner",
  "aoc-runner-derive",
- "codspeed-criterion-compat",
+ "codspeed-criterion-compat 4.2.0",
 ]
 
 [[package]]
